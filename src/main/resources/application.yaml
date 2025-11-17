@@ -6,7 +6,7 @@ spring:
     name: library-auth
 
   datasource:
-    url: jdbc:mysql://localhost:3312/library_auth
+    url: jdbc:mysql://localhost:3312/library
   sql:
     init:
       mode: always
