@@ -1,11 +1,23 @@
-# Library Spring Boot
+# Library Spring Boot (base)
 
-This is one of my personals Spring Boot projects and it's based on a fictional Library with
-it's data.
+## Sections
+* [Build Status](#build-status)
+* [Spanish](#spanish)
+* [Introducción](#spanish-intro)
+* [Requisitos](#spanish-req)
+* [Instalación](#spanish-install)
+* [English](#english)
 
-# TODO
-<ul>
-  <li>Add security</li>
-  <li>Add batch</li>
-  <li>Add user authentication + front end</li>
-</ul>
+
+## Build Status
+
+master | base | security
+:------------: | :------------: | :------------:
+[![master Build Status](https://github.com/Alysrazor/Library/actions/workflows/ci.yml/badge.svg?branch=master&event=push)](https://github.com/Alysrazor/Library/actions/workflows/ci.yml) | [![base Build Status](https://github.com/Alysrazor/Library/actions/workflows/ci.yml/badge.svg?branch=base&event=push)](https://github.com/Alysrazor/Library/actions/workflows/ci.yml) | [![security Build Status](https://github.com/Alysrazor/Library/actions/workflows/ci.yml/badge.svg?branch=security&event=push)](https://github.com/Alysrazor/Library/actions/workflows/ci.yml) |
+
+## Introducción
+
+Library Spring Boot es un proyecto personal que se basa en la gestión de una supuesta librería a través de
+unos endpoints.
+
+En esta rama no se implementan medidas de seguridad, se implementarán en la rama security.
