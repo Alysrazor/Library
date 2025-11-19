@@ -1,5 +1,7 @@
 package com.alysrazor.library.controller;
 
+import com.alysrazor.library.annotation.IsAdmin;
+import com.alysrazor.library.annotation.IsUser;
 import com.alysrazor.library.dto.AuthorDTO;
 import com.alysrazor.library.dto.BookDTO;
 import com.alysrazor.library.entity.Author;
@@ -8,6 +10,7 @@ import com.alysrazor.library.service.AuthorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -58,6 +61,7 @@ public class AuthorController {
 
 
     @PostMapping({"", "/"})
+    @IsAdmin
     public ResponseEntity<AuthorDTO> insertAuthor(
              @RequestBody AuthorDTO author
     ) {
@@ -72,6 +76,7 @@ public class AuthorController {
     }
 
     @PutMapping("/{id}")
+    @IsAdmin
     public ResponseEntity<AuthorDTO> updateAuthor(
             @PathVariable int id,
             @RequestBody Author author
@@ -80,6 +85,7 @@ public class AuthorController {
     }
 
     @DeleteMapping("/{id}")
+    @IsAdmin
     public ResponseEntity<?> delete(@PathVariable int id) {
         Author delete = mapper.toEntity(service.findById(id));
         service.delete(delete);

@@ -2,8 +2,8 @@ package com.alysrazor.library.service;
 
 import com.alysrazor.library.dto.PublisherDTO;
 import com.alysrazor.library.entity.Publisher;
-import com.alysrazor.library.exceptions.PublisherHasBooksException;
-import com.alysrazor.library.exceptions.PublisherNotFoundException;
+import com.alysrazor.library.exception.PublisherHasBooksException;
+import com.alysrazor.library.exception.PublisherNotFoundException;
 import com.alysrazor.library.mapper.PublisherMapper;
 import com.alysrazor.library.repository.PublisherRepository;
 import lombok.RequiredArgsConstructor;

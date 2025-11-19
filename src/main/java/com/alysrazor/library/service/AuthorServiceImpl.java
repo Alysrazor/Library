@@ -2,8 +2,8 @@ package com.alysrazor.library.service;
 
 import com.alysrazor.library.dto.AuthorDTO;
 import com.alysrazor.library.entity.Author;
-import com.alysrazor.library.exceptions.AuthorHasBooksException;
-import com.alysrazor.library.exceptions.AuthorNotFoundException;
+import com.alysrazor.library.exception.AuthorHasBooksException;
+import com.alysrazor.library.exception.AuthorNotFoundException;
 import com.alysrazor.library.mapper.AuthorMapper;
 import com.alysrazor.library.repository.AuthorRepository;
 import lombok.RequiredArgsConstructor;

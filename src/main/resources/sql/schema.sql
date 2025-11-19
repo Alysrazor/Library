@@ -1,0 +1,85 @@
+CREATE TABLE IF NOT EXISTS `author` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(255) NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`birth_date` DATE NOT NULL,
+	`nationality` VARCHAR(255) NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`email` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`website` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`create_date` TIMESTAMP NULL DEFAULT (CURRENT_TIMESTAMP),
+	`update_date` TIMESTAMP NULL DEFAULT (CURRENT_TIMESTAMP) ON UPDATE CURRENT_TIMESTAMP,
+	PRIMARY KEY (`id`) USING BTREE
+)
+COLLATE='utf8mb4_0900_ai_ci'
+ENGINE=InnoDB
+;
+
+CREATE TABLE IF NOT EXISTS `publisher` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(255) NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`country` VARCHAR(255) NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`website` VARCHAR(255) NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`email` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`address` VARCHAR(255) NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`create_date` TIMESTAMP NULL DEFAULT (now()),
+	`update_date` TIMESTAMP NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,
+	PRIMARY KEY (`id`) USING BTREE
+)
+COLLATE='utf8mb4_0900_ai_ci'
+ENGINE=InnoDB
+;
+
+CREATE TABLE IF NOT EXISTS `book` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`title` VARCHAR(255) NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`isbn` VARCHAR(255) NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`publication_date` DATE NOT NULL,
+	`pages` INT NOT NULL,
+	`language` VARCHAR(255) NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`summary` LONGTEXT NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`genre` VARCHAR(255) NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`update_date` TIMESTAMP NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,
+	`create_date` TIMESTAMP NULL DEFAULT (now()),
+	`author_id` INT NULL DEFAULT NULL,
+	`publisher_id` INT NULL DEFAULT NULL,
+	PRIMARY KEY (`id`) USING BTREE,
+	UNIQUE INDEX `UQ_index` (`isbn`) USING BTREE,
+	INDEX `FK_book_publisher` (`publisher_id`) USING BTREE,
+	INDEX `FK_book_author` (`author_id`) USING BTREE,
+	CONSTRAINT `FK_book_author` FOREIGN KEY (`author_id`) REFERENCES `author` (`id`) ON UPDATE CASCADE ON DELETE RESTRICT,
+	CONSTRAINT `FK_book_publisher` FOREIGN KEY (`publisher_id`) REFERENCES `publisher` (`id`) ON UPDATE CASCADE ON DELETE RESTRICT
+)
+COLLATE='utf8mb4_0900_ai_ci'
+ENGINE=InnoDB
+;
+
+DROP TABLE IF EXISTS `token`;
+DROP TABLE IF EXISTS `user`;
+
+CREATE TABLE `user` (
+	`id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+	`username` VARCHAR(30) NOT NULL COLLATE 'utf8mb4_spanish_ci',
+	`email` VARCHAR(120) NOT NULL COLLATE 'utf8mb4_spanish_ci',
+	`password` VARCHAR(64) NOT NULL,
+	PRIMARY KEY (`id`) USING BTREE,
+	UNIQUE INDEX `username` (`username`) USING BTREE,
+	UNIQUE INDEX `email` (`email`) USING BTREE
+)
+COLLATE='utf8mb4_spanish_ci'
+ENGINE=InnoDB
+;
+
+CREATE TABLE `token` (
+	`id` BIGINT NOT NULL AUTO_INCREMENT,
+	`token` VARCHAR(255) NOT NULL COLLATE 'utf8mb4_spanish_ci',
+	`token_type` ENUM('BEARER') NOT NULL COLLATE 'utf8mb4_spanish_ci',
+	`revoked` BIT(1) NOT NULL,
+	`expired` BIT(1) NOT NULL,
+	`user_id` BIGINT UNSIGNED NOT NULL,
+	PRIMARY KEY (`id`) USING BTREE,
+	UNIQUE INDEX `unique_token` (`token`) USING BTREE,
+	INDEX `FK_token_user` (`user_id`) USING BTREE,
+	CONSTRAINT `FK_token_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON UPDATE CASCADE ON DELETE CASCADE
+)
+COLLATE='utf8mb4_spanish_ci'
+ENGINE=InnoDB
+;

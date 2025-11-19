@@ -1,5 +1,6 @@
 package com.alysrazor.library.controller;
 
+import com.alysrazor.library.annotation.IsAdmin;
 import com.alysrazor.library.dto.BookDTO;
 import com.alysrazor.library.dto.PublisherDTO;
 import com.alysrazor.library.entity.Publisher;
@@ -58,6 +59,7 @@ public class PublisherController {
     }
 
     @PostMapping({"", "/"})
+    @IsAdmin
     public ResponseEntity<PublisherDTO> insertPublisher(
             @RequestBody PublisherDTO publisher
     ) {
@@ -73,6 +75,7 @@ public class PublisherController {
     }
 
     @PutMapping("/{id}")
+    @IsAdmin
     public ResponseEntity<PublisherDTO> updatePublisher(
             @PathVariable int id,
             @RequestBody Publisher publisher
@@ -84,6 +87,7 @@ public class PublisherController {
     }
 
     @DeleteMapping("/{id}")
+    @IsAdmin
     public ResponseEntity<?> delete(@PathVariable int id) {
         Publisher delete = mapper.toEntity(service.findById(id));
         service.delete(delete);

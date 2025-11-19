@@ -4,10 +4,10 @@ import com.alysrazor.library.dto.*;
 import com.alysrazor.library.entity.Author;
 import com.alysrazor.library.entity.Book;
 import com.alysrazor.library.entity.Publisher;
-import com.alysrazor.library.exceptions.AuthorNotFoundException;
-import com.alysrazor.library.exceptions.BookIsbnAlreadyExists;
-import com.alysrazor.library.exceptions.BookNotFoundException;
-import com.alysrazor.library.exceptions.PublisherNotFoundException;
+import com.alysrazor.library.exception.AuthorNotFoundException;
+import com.alysrazor.library.exception.BookIsbnAlreadyExists;
+import com.alysrazor.library.exception.BookNotFoundException;
+import com.alysrazor.library.exception.PublisherNotFoundException;
 import com.alysrazor.library.mapper.BookMapper;
 import com.alysrazor.library.service.BookService;
 import org.junit.jupiter.api.Test;
@@ -16,8 +16,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
-
-import java.time.LocalDate;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;

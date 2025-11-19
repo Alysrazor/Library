@@ -1,8 +1,8 @@
 package com.alysrazor.library.controller;
 
-import com.alysrazor.library.exceptions.ErrorResponse;
-import com.alysrazor.library.exceptions.PublisherHasBooksException;
-import com.alysrazor.library.exceptions.PublisherNotFoundException;
+import com.alysrazor.library.exception.ErrorResponse;
+import com.alysrazor.library.exception.PublisherHasBooksException;
+import com.alysrazor.library.exception.PublisherNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

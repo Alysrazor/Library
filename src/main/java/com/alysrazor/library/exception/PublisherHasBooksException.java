@@ -1,4 +1,4 @@
-package com.alysrazor.library.exceptions;
+package com.alysrazor.library.exception;
 
 public class PublisherHasBooksException extends RuntimeException {
     public PublisherHasBooksException(String message) {

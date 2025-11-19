@@ -1,5 +1,6 @@
 package com.alysrazor.library.controller;
 
+import com.alysrazor.library.annotation.IsAdmin;
 import com.alysrazor.library.dto.BookDTO;
 import com.alysrazor.library.entity.Book;
 import com.alysrazor.library.mapper.BookMapper;
@@ -56,6 +57,7 @@ public class BookController {
     }
 
     @PostMapping({"", "/"})
+    @IsAdmin
     public ResponseEntity<BookDTO> insertBook(
             @RequestBody BookDTO book
     ) {
@@ -71,6 +73,7 @@ public class BookController {
     }
 
     @PutMapping("/{id}")
+    @IsAdmin
     public ResponseEntity<BookDTO> updateBook(
             @PathVariable int id,
             @RequestBody Book book
@@ -80,6 +83,7 @@ public class BookController {
     }
 
     @DeleteMapping("/{id}")
+    @IsAdmin
     public ResponseEntity<?> delete(@PathVariable int id) {
         Book delete = mapper.toEntity(service.findById(id));
         service.delete(delete);

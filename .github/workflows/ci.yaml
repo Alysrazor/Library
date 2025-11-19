@@ -1,0 +1,27 @@
+name: library-security
+
+on:
+  push:
+    branches: [ "security" ]
+  pull_request:
+    branches: [ "security" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5.0.0
+
+      - name: Set up JDK
+        uses: actions/setup-java@v5.0.0
+        with:
+          distribution: "temurin"
+          java-version: "21"
+
+      - name: Grant permission to Gradle
+        run: chmod +x gradlew
+
+      - name: Gradle Build
+        run: ./gradlew build

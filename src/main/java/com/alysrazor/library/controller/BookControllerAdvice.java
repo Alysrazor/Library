@@ -1,8 +1,8 @@
 package com.alysrazor.library.controller;
 
-import com.alysrazor.library.exceptions.BookIsbnAlreadyExists;
-import com.alysrazor.library.exceptions.BookNotFoundException;
-import com.alysrazor.library.exceptions.ErrorResponse;
+import com.alysrazor.library.exception.BookIsbnAlreadyExists;
+import com.alysrazor.library.exception.BookNotFoundException;
+import com.alysrazor.library.exception.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
