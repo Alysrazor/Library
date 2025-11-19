@@ -1,5 +1,7 @@
 package com.alysrazor.library.controller;
 
+import com.alysrazor.library.config.JwtAuthFilter;
+import com.alysrazor.library.config.SecurityConfig;
 import com.alysrazor.library.dto.BookDTO;
 import com.alysrazor.library.dto.PublisherDTO;
 import com.alysrazor.library.entity.Publisher;
@@ -10,6 +12,8 @@ import com.alysrazor.library.service.PublisherService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
@@ -21,7 +25,18 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(controllers = PublisherController.class)
+@WebMvcTest(
+        controllers = AuthorController.class,
+        excludeFilters = {
+                @ComponentScan.Filter(
+                        type = FilterType.ASSIGNABLE_TYPE,
+                        classes = {
+                                SecurityConfig.class,
+                                JwtAuthFilter.class
+                        }
+                )
+        }
+)
 public class PublisherControllerTest {
     @Autowired
     private MockMvc mockMvc;
