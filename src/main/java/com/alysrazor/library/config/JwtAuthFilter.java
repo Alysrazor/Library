@@ -52,8 +52,10 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         final String jwtToken = authHeader.substring(7);
         final String email = jwtService.extractUsername(jwtToken);
 
-        if (email == null || SecurityContextHolder.getContext().getAuthentication() != null)
+        if (email == null || SecurityContextHolder.getContext().getAuthentication() != null) {
+            filterChain.doFilter(request, response);
             return;
+        }
 
         final Token token = tokenRepo.findByToken(jwtToken)
                 .orElse(null);
@@ -73,7 +75,10 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         final boolean isValidToken = jwtService.isValidToken(jwtToken, user.get());
 
-        if (!isValidToken) return;
+        if (!isValidToken) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
         final UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                 userDetails,

@@ -1,7 +1,6 @@
 package com.alysrazor.library.controller;
 
 import com.alysrazor.library.annotation.IsAdmin;
-import com.alysrazor.library.annotation.IsUser;
 import com.alysrazor.library.dto.AuthorDTO;
 import com.alysrazor.library.dto.BookDTO;
 import com.alysrazor.library.entity.Author;
@@ -10,7 +9,6 @@ import com.alysrazor.library.service.AuthorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -32,9 +30,7 @@ public class AuthorController {
                 ? service.findAll()
                 : service.findByNameContainingIgnoreCase(name);
 
-        return authorList.isEmpty()
-                ? ResponseEntity.noContent().build()
-                : ResponseEntity.ok(authorList);
+        return ResponseEntity.ok(authorList);
     }
 
     @GetMapping({"/books"})
@@ -69,7 +65,7 @@ public class AuthorController {
         Author saved = service.save(entity);
 
         URI location = URI.create(
-                String.format("/api/vi/author/%d", saved.getId())
+                String.format("/api/v1/author/%d", saved.getId())
         );
 
         return ResponseEntity.created(location).body(mapper.toDTO(saved));
