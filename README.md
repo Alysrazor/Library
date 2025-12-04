@@ -6,6 +6,7 @@
 * [Introducción](#introducción)
 * [Requisitos](#requisitos)
 * [Instalación](#instalación)
+* [Posibles Mejoras](#posibles-mejoras)
 * [English](#english)
 * [Introduction](#introduction)
 * [Requirements](#requirements)
@@ -36,6 +37,10 @@ En esta rama se implementan medidas de seguridad de JWT.
 
 ## Instalación
 Se implementará un Dockerfile cuando ya no hayan más revisiones
+
+## Posibles Mejoras
+- Añadir reseñas a los libros
+- Realizar un análisis de sentimientos con una IA en un proyecto separado.
 
 # English
 NYI

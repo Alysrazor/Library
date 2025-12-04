@@ -29,9 +29,7 @@ public class BookController {
                 ? service.findAll()
                 : service.findByTitleContainingIgnoreCase(title);
 
-        return bookList.isEmpty()
-                ? ResponseEntity.noContent().build()
-                : ResponseEntity.ok(bookList);
+        return ResponseEntity.ok(bookList);
     }
 
     @GetMapping("{id}")

@@ -12,6 +12,7 @@ import com.alysrazor.library.repository.UserRepository;
 import com.alysrazor.library.service.AuthorService;
 import com.alysrazor.library.service.JwtService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -57,12 +58,17 @@ class AuthorControllerWithSecurityTest {
     private TokenRepository tokenRepo;
 
     @Test
+    @DisplayName("Guest: Ok when getting authors")
     void anonymousUser_whenGettingAuthors_thenOk() throws Exception {
         mockMvc.perform(get("/api/v1/author"))
                 .andExpect(status().isOk());
+
+        verify(authorService).findAll();
+        verifyNoMoreInteractions(authorService);
     }
 
     @Test
+    @DisplayName("Guest: Ok when getting an author")
     void anonymousUser_whenGettingAnAuthor_thenOk() throws Exception {
         AuthorDTO dto = new AuthorDTO(
                 1L, "George R. R. Martin",
@@ -79,18 +85,21 @@ class AuthorControllerWithSecurityTest {
     }
 
     @Test
+    @DisplayName("Guest: Forbbiden when creating authors")
     void anonymousUser_whenCreatingAnAuthor_thenForbidden() throws Exception {
         mockMvc.perform(post("/api/v1/author/"))
                 .andExpect(status().isForbidden());
     }
 
     @Test
+    @DisplayName("Guest: Forbbiden when updating authors")
     void anonymousUser_whenUpdatingAnAuthor_thenForbidden() throws Exception {
         mockMvc.perform(put("/api/v1/author/**"))
                 .andExpect(status().isForbidden());
     }
 
     @Test
+    @DisplayName("Guest: Forbbiden when deleting authors")
     void anonymousUser_whenDeletingAnAuthor_thenForbidden() throws Exception {
         mockMvc.perform(delete("/api/v1/author/**"))
                 .andExpect(status().isForbidden());
@@ -98,13 +107,18 @@ class AuthorControllerWithSecurityTest {
 
     @Test
     @WithMockUser(username = "testUser", roles = "USER")
+    @DisplayName("User: Ok when getting authors")
     void regularUser_whenGettingAuthors_thenOk() throws Exception {
         mockMvc.perform(get("/api/v1/author/"))
                 .andExpect(status().isOk());
+
+        verify(authorService).findAll();
+        verifyNoMoreInteractions(authorService);
     }
 
     @Test
     @WithMockUser(username = "testUser", roles = "USER")
+    @DisplayName("User: Ok when getting an author")
     void regularUser_whenGettingAnAuthor_thenOk() throws Exception {
         AuthorDTO dto = new AuthorDTO(
                 1L, "George R. R. Martin",
@@ -122,6 +136,7 @@ class AuthorControllerWithSecurityTest {
 
     @Test
     @WithMockUser(username = "testUser", roles = "USER")
+    @DisplayName("User: Forbbiden when creating authors")
     void regularUser_whenCreatingAnAuthor_thenForbidden() throws Exception {
         mockMvc.perform(post("/api/v1/author/**"))
                 .andExpect(status().isForbidden());
@@ -129,6 +144,7 @@ class AuthorControllerWithSecurityTest {
 
     @Test
     @WithMockUser(username = "testUser", roles = "USER")
+    @DisplayName("User: Forbbiden when updating authors")
     void regularUser_whenUpdatingAnAuthor_thenForbidden() throws Exception {
         mockMvc.perform(put("/api/v1/author/**"))
                 .andExpect(status().isForbidden());
@@ -136,6 +152,7 @@ class AuthorControllerWithSecurityTest {
 
     @Test
     @WithMockUser(username = "testUser", roles = "USER")
+    @DisplayName("User: Forbbiden when deleting authors")
     void regularUser_whenDeletingAnAuthor_thenForbidden() throws Exception {
         mockMvc.perform(delete("/api/v1/author/**"))
                 .andExpect(status().isForbidden());
@@ -143,13 +160,18 @@ class AuthorControllerWithSecurityTest {
 
     @Test
     @WithMockUser(username = "admin", roles = "ADMIN")
+    @DisplayName("Admin: Ok when getting authors")
     void adminUser_whenGettingAuthors_thenOk() throws Exception {
         mockMvc.perform(get("/api/v1/author/"))
                 .andExpect(status().isOk());
+
+        verify(authorService).findAll();
+        verifyNoMoreInteractions(authorService);
     }
 
     @Test
     @WithMockUser(username = "admin", roles = "ADMIN")
+    @DisplayName("Admin: Ok when getting an author.")
     void adminUser_whenGettingAnAuthor_thenOk() throws Exception {
         AuthorDTO dto = new AuthorDTO(
                 1L, "George R. R. Martin",
@@ -167,6 +189,7 @@ class AuthorControllerWithSecurityTest {
 
     @Test
     @WithMockUser(username = "admin", roles = "ADMIN")
+    @DisplayName("Admin: Ok when creating authors")
     void adminUser_whenCreatingAnAuthor_thenCreated() throws Exception {
         AuthorDTO dto = new AuthorDTO(
                 1L, "George R. R. Martin",
@@ -196,6 +219,7 @@ class AuthorControllerWithSecurityTest {
 
     @Test
     @WithMockUser(username = "admin", roles = "ADMIN")
+    @DisplayName("Admin: Ok when updating authors")
     void adminUser_whenUpdatingAnAuthor_thenCreated() throws Exception {
         AuthorDTO dto = new AuthorDTO(
                 1L, "George R. R. Martin Updated",
@@ -203,10 +227,6 @@ class AuthorControllerWithSecurityTest {
         );
 
         String body = new ObjectMapper().writeValueAsString(dto);
-
-        Author entity = new Author();
-        entity.setId(1);
-        entity.setName("George R. R. Martin Updated");
 
         when(authorService.update(eq(1), any(Author.class))).thenReturn(dto);
 
@@ -222,6 +242,7 @@ class AuthorControllerWithSecurityTest {
 
     @Test
     @WithMockUser(username = "admin", roles = "ADMIN")
+    @DisplayName("Admin: Exception when author has books.")
     void adminUser_whenDeleteAnAuthorHasBooks_thenException() throws Exception {
         AuthorDTO dto = new AuthorDTO(
                 1L, "George R. R. Martin Updated",
@@ -250,6 +271,7 @@ class AuthorControllerWithSecurityTest {
 
     @Test
     @WithMockUser(username = "admin", roles = "ADMIN")
+    @DisplayName("Admin: NoContent when deleting authors")
     void adminUser_whenDeleteAnAuthor_thenNoContent() throws Exception {
         AuthorDTO dto = new AuthorDTO(
                 1L, "George R. R. Martin Updated",

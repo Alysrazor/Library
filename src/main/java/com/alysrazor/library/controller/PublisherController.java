@@ -30,9 +30,7 @@ public class PublisherController {
                 ? service.findAll()
                 : service.findByNameContainingIgnoreCase(name);
 
-        return publisherList.isEmpty()
-                ? ResponseEntity.noContent().build()
-                : ResponseEntity.ok(publisherList);
+        return ResponseEntity.ok(publisherList);
     }
 
     @GetMapping("/{id}")
