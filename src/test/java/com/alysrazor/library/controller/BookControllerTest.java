@@ -1,6 +1,5 @@
 package com.alysrazor.library.controller;
 
-import com.alysrazor.library.config.AppConfig;
 import com.alysrazor.library.config.JwtAuthFilter;
 import com.alysrazor.library.config.SecurityConfig;
 import com.alysrazor.library.dto.*;
@@ -11,19 +10,14 @@ import com.alysrazor.library.exception.AuthorNotFoundException;
 import com.alysrazor.library.exception.BookIsbnAlreadyExists;
 import com.alysrazor.library.exception.BookNotFoundException;
 import com.alysrazor.library.exception.PublisherNotFoundException;
-import com.alysrazor.library.mapper.AuthorMapper;
 import com.alysrazor.library.mapper.BookMapper;
-import com.alysrazor.library.mapper.PublisherMapper;
-import com.alysrazor.library.service.AuthorService;
 import com.alysrazor.library.service.BookService;
-import com.alysrazor.library.service.PublisherService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.http.MediaType;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
