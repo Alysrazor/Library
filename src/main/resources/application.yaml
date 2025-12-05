@@ -3,10 +3,12 @@ server:
 
 spring:
   application:
-    name: library-auth
+    name: library
 
   datasource:
-    url: jdbc:mysql://localhost:3312/library
+    url: ${SPRING_BOOT_LIBRARY_MYSQL_URL}
+    username: ${SPRING_BOOT_USERNAME}
+    password: ${SPRING_BOOT_PASSWORD}
   sql:
     init:
       mode: always
