@@ -25,10 +25,10 @@ repositories {
 }
 
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-batch:4.0.0")
-	implementation("org.springframework.boot:spring-boot-starter-data-jpa:4.0.0")
-	implementation("org.springframework.boot:spring-boot-starter-security:4.0.0")
-	implementation("org.springframework.boot:spring-boot-starter-web:4.0.0")
+	implementation("org.springframework.boot:spring-boot-starter-batch")
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+	implementation("org.springframework.boot:spring-boot-starter-security")
+	implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.mysql:mysql-connector-j:8.4.0")
     implementation("org.mapstruct:mapstruct:1.6.3")
     annotationProcessor("org.mapstruct:mapstruct-processor:1.6.3")
@@ -36,10 +36,11 @@ dependencies {
 	annotationProcessor("org.projectlombok:lombok:1.18.42")
     annotationProcessor("org.projectlombok:lombok-mapstruct-binding:0.2.0")
 
-	testImplementation("org.springframework.boot:spring-boot-starter-test:4.0.0")
-	testImplementation("org.springframework.batch:spring-batch-test:4.0.0")
-	testImplementation("org.springframework.security:spring-security-test:4.0.0")
-	testRuntimeOnly("org.junit.platform:junit-platform-launcher:6.0.1")
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
+	testImplementation("org.springframework.batch:spring-batch-test")
+	testImplementation("org.springframework.security:spring-security-test")
+	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 tasks.withType<Test> {
