@@ -26,7 +26,7 @@ public class PublisherController {
     public ResponseEntity<List<PublisherDTO>> getAllPublishers(
             @RequestParam(required = false) String name
     ) {
-        List<PublisherDTO> publisherList = (name == null || name.isBlank())
+        List<PublisherDTO> publisherList = name.isBlank()
                 ? service.findAll()
                 : service.findByNameContainingIgnoreCase(name);
 

@@ -6,6 +6,7 @@ import com.alysrazor.library.dto.BookDTO;
 import com.alysrazor.library.entity.Author;
 import com.alysrazor.library.mapper.AuthorMapper;
 import com.alysrazor.library.service.AuthorService;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,7 @@ public class AuthorController {
     public ResponseEntity<List<AuthorDTO>> getAllAuthors(
             @RequestParam(required = false) String name
     ) {
-        List<AuthorDTO> authorList = (name == null || name.isBlank())
+        List<AuthorDTO> authorList = name.isBlank()
                 ? service.findAll()
                 : service.findByNameContainingIgnoreCase(name);
 
@@ -39,9 +40,7 @@ public class AuthorController {
     ) {
         List<BookDTO> bookList = service.findByNameContainingIgnoreCase(name).getFirst().bookList();
 
-        return bookList.isEmpty()
-                ? ResponseEntity.noContent().build()
-                : ResponseEntity.ok(bookList);
+        return ResponseEntity.ok(bookList);
     }
 
     @GetMapping("/{id}")
@@ -50,9 +49,7 @@ public class AuthorController {
     ) {
         AuthorDTO author = service.findById(id);
 
-        return author == null
-                ? ResponseEntity.notFound().build()
-                : ResponseEntity.ok(author);
+        return ResponseEntity.ok(author);
     }
 
 

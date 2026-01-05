@@ -25,7 +25,7 @@ public class BookController {
     public ResponseEntity<List<BookDTO>> getAllBooks(
             @RequestParam(required = false) String title
     ) {
-        List<BookDTO> bookList = (title == null || title.isBlank())
+        List<BookDTO> bookList = title.isBlank()
                 ? service.findAll()
                 : service.findByTitleContainingIgnoreCase(title);
 
@@ -49,9 +49,7 @@ public class BookController {
     ) {
         BookDTO found = service.findByIsbn(isbn);
 
-        return found == null
-                ? ResponseEntity.notFound().build()
-                : ResponseEntity.ok(found);
+        return ResponseEntity.ok(found);
     }
 
     @PostMapping({"", "/"})
